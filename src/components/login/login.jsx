@@ -1,141 +1,91 @@
-import React, { Fragment } from "react";
-import {
-  Avatar,
-  Button,
-  CssBaseline,
-  TextField,
-  FormControlLabel,
-  Checkbox,
-  Paper,
-  Box,
-  Grid,
-  Typography,
-  makeStyles,
-} from "@material-ui/core";
-import LockOutlinedIcon from "@material-ui/icons/LockOpenOutlined";
+import React, { Fragment, useState } from "react";
+import axios from "axios";
 
-//Router
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+const { innerWidth: width, innerHeight: height } = window;
 
-import Register from "./register";
-import Home from "../home/home";
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright © "}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
+const USER = {
+  email: "",
+  password: "",
+};
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    height: "100vh",
-  },
-  image: {
-    backgroundImage: "url(https://source.unsplash.com/random)",
-    backgroundRepeat: "no-repeat",
-    backgroundColor:
-      theme.palette.type === "light"
-        ? theme.palette.grey[50]
-        : theme.palette.grey[900],
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-  },
-  paper: {
-    margin: theme.spacing(8, 4),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
-  form: {
-    width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-}));
+const Login = () => {
+  const [user, setUser] = useState(USER);
 
-function Login() {
-  const classes = useStyles();
+  const setInput = (key, value) => {
+    setUser({ ...user, [key]: value });
+  };
+
+  const handleSignin = async () => {
+    try {
+      const _user = { ...user };
+      await axios
+        .post("url", { correo: _user.email, contrasenia: _user.password })
+        .then((data) => {
+          console.log(data);
+        })
+        .catch((error) => console.log({ error, _user }));
+    } catch (error) {
+      console.log("Error to signin account: ", error);
+    }
+  };
 
   return (
-    <Router>
-      <Grid container component="main" className={classes.root}>
-        <CssBaseline />
-        <Grid item xs={false} sm={4} md={7} className={classes.image} />
-        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-          <div className={classes.paper}>
-            <Avatar className={classes.avatar}>
-              <LockOutlinedIcon />
-            </Avatar>
-            <Typography component="h1" variant="h5">
-              Sign in
-            </Typography>
-            <form className={classes.form} noValidate>
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
-                autoFocus
+    <Fragment>
+      <div className="row">
+        <div className="col-4" />
+        <div className="col-4">
+          <form>
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">
+                Email address
+              </label>
+              <input
+                type="email"
+                class="form-control"
+                id="exampleInputEmail1"
+                aria-describedby="emailHelp"
+                value={user.email}
+                onChange={(e) => setInput("email", e.target.value)}
               />
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                name="password"
-                label="Password"
+              <div id="emailHelp" class="form-text">
+                We'll never share your email with anyone else.
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label">
+                Password
+              </label>
+              <input
                 type="password"
-                id="password"
-                autoComplete="current-password"
+                class="form-control"
+                id="exampleInputPassword1"
+                value={user.password}
+                onChange={(e) => setInput("password", e.target.value)}
               />
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
+            </div>
+            <div class="mb-3 form-check">
+              <input
+                type="checkbox"
+                class="form-check-input"
+                id="exampleCheck1"
               />
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                className={classes.submit}
-              >
-                <Link to="/home">Sign In</Link>
-              </Button>
-              <Grid container>
-                <Grid item xs>
-                  {/* <Link href="#" variant="body2">
-                  Forgot password?
-                </Link> */}
-                </Grid>
-                <Grid item>
-                  <Link to="/signup" >
-                    Registrarse
-                  </Link>
-                </Grid>
-              </Grid>
-              <Box mt={5}>
-                <Copyright />
-              </Box>
-            </form>
-          </div>
-        </Grid>
-      </Grid>
-    </Router>
+              <label class="form-check-label" for="exampleCheck1">
+                Check me out
+              </label>
+            </div>
+            <button
+              type="submit"
+              class="btn btn-primary"
+              onClick={handleSignin}
+            >
+              Submit
+            </button>
+          </form>
+        </div>
+        <div className="col-4" />
+      </div>
+    </Fragment>
   );
-}
+};
 
 export default Login;
