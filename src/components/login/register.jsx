@@ -34,80 +34,82 @@ function SignUp() {
   };
 
   return (
-    <form className="row g-3">
-      <div className="col-md-6">
-        <label for="inputEmail4" className="form-label">
-          Email
-        </label>
-        <input
-          type="email"
-          className="form-control"
-          id="inputEmail4"
-          value={user.correo}
-          onChange={(e) => setInput("correo", e.target.value)}
-        />
-      </div>
-      <div className="col-md-6">
-        <label for="inputPassword4" className="form-label">
-          Password
-        </label>
-        <input
-          type="password"
-          className="form-control"
-          id="inputPassword4"
-          value={user.contraseña}
-          onChange={(e) => setInput("contraseña", e.target.value)}
-        />
-      </div>
-      <div className="col-12">
-        <label for="inputName" className="form-label">
-          Nombre(s)
-        </label>
-        <input
-          type="text"
-          className="form-control"
-          id="inputName"
-          placeholder="San Martin Caballero"
-          value={user.nombre}
-          onChange={(e) => setInput("nombre", e.target.value)}
-        />
-      </div>
-      <div className="col-12">
-        <label for="inputLastName" className="form-label">
-          Appellidos
-        </label>
-        <input
-          type="text"
-          className="form-control"
-          id="inputLastName"
-          placeholder="Montes de Oca"
-          value={user.apellidoP}
-          onChange={(e) => setInput("apellidoP", e.target.value)}
-        />
-      </div>
-      <div className="col-md-4">
-        <label for="inputState" className="form-label">
-          Registrarse como
-        </label>
-        <select
-          id="inputState"
-          className="form-select"
-          onChange={(e) => setInput("id_rol_usuario", e.target.value)}
-        >
-          <option selected>Seleccionar</option>
-          <option value="1">PRESTAMISTA</option>
-        </select>
-      </div>
-      <div className="col-12">
-        <button
-          type="button"
-          className="btn btn-primary"
-          onClick={handleSignUp}
-        >
-          Sign in
-        </button>
-      </div>
-    </form>
+    <div className="container col-sm-4">
+      <form className="row g-3">
+        <div className="col-md-6">
+          <label for="inputEmail4" className="form-label">
+            Email
+          </label>
+          <input
+            type="email"
+            className="form-control"
+            id="inputEmail4"
+            value={user.correo}
+            onChange={(e) => setInput("correo", e.target.value)}
+          />
+        </div>
+        <div className="col-md-6">
+          <label for="inputPassword4" className="form-label">
+            Password
+          </label>
+          <input
+            type="password"
+            className="form-control"
+            id="inputPassword4"
+            value={user.contraseña}
+            onChange={(e) => setInput("contraseña", e.target.value)}
+          />
+        </div>
+        <div className="col-12">
+          <label for="inputName" className="form-label">
+            Nombre(s)
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            id="inputName"
+            placeholder="San Martin Caballero"
+            value={user.nombre}
+            onChange={(e) => setInput("nombre", e.target.value)}
+          />
+        </div>
+        <div className="col-12">
+          <label for="inputLastName" className="form-label">
+            Appellidos
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            id="inputLastName"
+            placeholder="Montes de Oca"
+            value={user.apellidoP}
+            onChange={(e) => setInput("apellidoP", e.target.value)}
+          />
+        </div>
+        <div className="col-md-4">
+          <label for="inputState" className="form-label">
+            Registrarse como
+          </label>
+          <select
+            id="inputState"
+            className="form-select"
+            onChange={(e) => setInput("id_rol_usuario", e.target.value)}
+          >
+            <option selected>Seleccionar</option>
+            <option value="1">PRESTAMISTA</option>
+          </select>
+        </div>
+        <div className="col-12">
+          <button
+            type="button"
+            className="btn btn-primary"
+            onClick={handleSignUp}
+          >
+            Sign in
+          </button>
+        </div>
+      </form>
+    </div>
   );
 }
 
