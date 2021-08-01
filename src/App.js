@@ -1,10 +1,10 @@
 import Login from "./components/login/login";
 import SignUp from "./components/login/register";
-//import Home from "./components/home/home";
 import NavBar from "./components/nav-bar/NavBar";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Home from "./pages/Home";
 import Products from "./pages/Products";
+import ListProducts from "./pages/ListProducts";
 import "./App.css";
 function App() {
   return (
@@ -17,8 +17,9 @@ function App() {
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/products" component={Products} />
-          <Route path="/signup" component={SignUp}/>
-          <Route path="/signin" component={Login}/>
+          <Route path="/signup" component={SignUp} />
+          <Route path="/signin" component={Login} />
+          <Route path="/listproducts" component={ListProducts} />
         </Switch>
         {/* <Switch>
           <Route path="/" exact>
