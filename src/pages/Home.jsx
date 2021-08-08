@@ -3,7 +3,6 @@ import "../styles/home.css";
 import ProductCard from "../components/product-card/product-card";
 import { FiSearch } from "react-icons/fi"
 import axios from 'axios';
-import cors from 'cors';
 
 const producto = {
   nom_producto: "Bicicleta de montania",
