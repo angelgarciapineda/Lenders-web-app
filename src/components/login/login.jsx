@@ -33,45 +33,45 @@ const Login = () => {
     <Fragment>
       <div className="container col-sm-4">
         <form className="row g-3">
-          <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">
+          <div className="mb-3">
+            <label id="exampleInputEmail1" className="form-label">
               Email address
             </label>
             <input
               type="email"
-              class="form-control"
+              className="form-control"
               id="exampleInputEmail1"
               aria-describedby="emailHelp"
               value={user.email}
               onChange={(e) => setInput("email", e.target.value)}
             />
-            <div id="emailHelp" class="form-text">
+            <div id="emailHelp" className="form-text">
               We'll never share your email with anyone else.
             </div>
           </div>
-          <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label">
+          <div className="mb-3">
+            <label id="exampleInputPassword1" className="form-label">
               Password
             </label>
             <input
               type="password"
-              class="form-control"
+              className="form-control"
               id="exampleInputPassword1"
               value={user.password}
               onChange={(e) => setInput("password", e.target.value)}
             />
           </div>
-          <div class="mb-3 form-check">
+          <div className="mb-3 form-check">
             <input
               type="checkbox"
-              class="form-check-input"
+              className="form-check-input"
               id="exampleCheck1"
             />
-            <label class="form-check-label" for="exampleCheck1">
+            <label className="form-check-label" id="exampleCheck1">
               Check me out
             </label>
           </div>
-          <button type="submit" class="btn btn-primary" onClick={handleSignin}>
+          <button type="submit" className="btn btn-primary" onClick={handleSignin}>
             Submit
           </button>
         </form>
