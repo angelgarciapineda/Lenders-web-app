@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import UserPool from "../UserPool";
 
 const initialObject = {
   nom_producto: "",
@@ -12,6 +13,8 @@ const initialObject = {
 function Products() {
   const [formState, setFormState] = useState(initialObject);
   const [cat, setCat] = useState([]);
+  const userAuthenticated = UserPool.getCurrentUser();
+
   useEffect(() => {
     let ok = false;
 

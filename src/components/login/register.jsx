@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import UserPool from "../../UserPool"
+import UserPool from "../../UserPool";
 
 const newUser = {
   correo: "",
@@ -37,22 +37,21 @@ function SignUp(props) {
   const signUpFunc = () => {
     //console.log("USER --------------------> ",user);
 
-    UserPool.signUp(user.correo, user.contraseña, [], null, (err,data) => {
-      if(err){
-        console.log("SIGN UP ERROR ------------> ",err);
+    UserPool.signUp(user.correo, user.contraseña, [], null, (err, data) => {
+      if (err) {
+        console.log("SIGN UP ERROR ------------> ", err);
+        alert("Error vuelva a intentar");
+      } else {
+        console.log("SIGN UP ---------> ", data);
+        props.history.push("/code", user);
       }
-      else{
-        console.log("SIGN UP ---------> ",data);
-        props.history.push('/code', user);
-      }
-    })
-
-    props.history.push({
-      pathname: '/code',
-      state: { currentUser: user }
     });
 
-  }
+    props.history.push({
+      pathname: "/code",
+      state: { currentUser: user },
+    });
+  };
 
   return (
     <div className="container col-sm-4">
@@ -121,7 +120,6 @@ function SignUp(props) {
           </select>
         </div>
         <div className="col-12">
-
           <button
             type="button"
             className="btn btn-primary"
@@ -129,7 +127,6 @@ function SignUp(props) {
           >
             Sign In
           </button>
-          
         </div>
       </form>
     </div>

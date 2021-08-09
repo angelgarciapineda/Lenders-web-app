@@ -3,6 +3,7 @@ import "../styles/home.css";
 import ProductCard from "../components/product-card/product-card";
 import { FiSearch } from "react-icons/fi";
 import axios from "axios";
+import UserPool from "../UserPool";
 
 const producto = {
   nom_producto: "Bicicleta de montania",
@@ -18,6 +19,7 @@ const producto = {
 const URL = "http://localhost:3000/vistaProductos";
 
 function Home() {
+  const userAuthenticated = UserPool.getCurrentUser();
   const arrayProductos = useRef([]);
 
   useEffect(() => {

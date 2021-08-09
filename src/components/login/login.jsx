@@ -11,27 +11,26 @@ const USER = {
 };
 
 const Login = () => {
-
   const [user, setUser] = useState(USER);
-  const [session,setSession] = useState(false)
+  const [session, setSession] = useState(false);
   const userRef = useRef();
 
   useEffect(() => {
-
     let unmounted = false;
 
-    if(!unmounted){
+    if (!unmounted) {
       const currentUser = UserPool.getCurrentUser();
-      if(currentUser){
+      if (currentUser) {
         userRef.current = currentUser;
-        setSession(true)
-        console.log("CURRENT USER ------------> ",userRef.current);
+        setSession(true);
+        console.log("CURRENT USER ------------> ", userRef.current);
       }
     }
 
-    return () => { unmounted = true }
-
-  }, [])
+    return () => {
+      unmounted = true;
+    };
+  }, []);
 
   const setInput = (key, value) => {
     setUser({ ...user, [key]: value });
@@ -56,54 +55,54 @@ const Login = () => {
 
     const currentUser = new CognitoUser({
       Username: user.email,
-      Pool: UserPool
+      Pool: UserPool,
     });
 
     const AuthDetails = new AuthenticationDetails({
       Username: user.email,
-      Password: user.password
+      Password: user.password,
     });
 
     currentUser.authenticateUser(AuthDetails, {
       onSuccess: (data) => {
-        setSession(true)
-        console.log("LOGIN SUCCES ----------> ",data);
+        setSession(true);
+        alert("Inicio de sesión correcto");
       },
       onFailure: (err) => {
-        console.log("LOGIN ERROR ----------> ",err);
+        console.log("LOGIN ERROR ----------> ", err);
+        alert("Error vuelva a intentar");
       },
       newPasswordRequired: (data) => {
-        console.log("LOGIN NEW PASSWORD ----------> ",data);
-      }
-    })
+        console.log("LOGIN NEW PASSWORD ----------> ", data);
+      },
+    });
 
     //console.log("USER -------------> ",user);
-  }
+  };
 
   const signOut = (event) => {
     event.preventDefault();
 
     const currentUser = UserPool.getCurrentUser();
-    if(currentUser){
+    if (currentUser) {
       try {
         currentUser.signOut();
-        setSession(false)
+        setSession(false);
         console.log("SESION CERRADA");
       } catch (error) {
-        console.log("ERROR LOG OUT -------> ",error);
+        console.log("ERROR LOG OUT -------> ", error);
       }
     }
-  }
+  };
 
   return (
     <Fragment>
       <div className="container col-sm-4">
-        {
-          session ?
+        {session ? (
           <button type="submit" className="btn btn-primary" onClick={signOut}>
             Log out
           </button>
-          :
+        ) : (
           <form className="row g-3">
             <div className="mb-3">
               <label id="exampleInputEmail1" className="form-label">
@@ -147,7 +146,7 @@ const Login = () => {
               Submit
             </button>
           </form>
-        }
+        )}
       </div>
     </Fragment>
   );
