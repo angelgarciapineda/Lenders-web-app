@@ -1,0 +1,18 @@
+.generalContainer {
+  /* background-color: red; */
+  width: 100%;
+  height: 100%;
+}
+
+.mainContainer {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  height: 100%;
+  padding: 5px;
+}
+
+.title {
+  font-size: 25px;
+}

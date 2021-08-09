@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import UserPool from "../../UserPool"
 
 const newUser = {
   correo: "",
@@ -16,7 +17,7 @@ const newUser = {
   id_rol_usuario: 0,
 };
 
-function SignUp() {
+function SignUp(props) {
   const [user, setUser] = useState(newUser);
 
   const setInput = (key, value) => {
@@ -32,6 +33,26 @@ function SignUp() {
       console.log("Error creating user: ", error);
     }
   };
+
+  const signUpFunc = () => {
+    //console.log("USER --------------------> ",user);
+
+    UserPool.signUp(user.correo, user.contraseña, [], null, (err,data) => {
+      if(err){
+        console.log("SIGN UP ERROR ------------> ",err);
+      }
+      else{
+        console.log("SIGN UP ---------> ",data);
+        props.history.push('/code', user);
+      }
+    })
+
+    props.history.push({
+      pathname: '/code',
+      state: { currentUser: user }
+    });
+
+  }
 
   return (
     <div className="container col-sm-4">
@@ -100,13 +121,15 @@ function SignUp() {
           </select>
         </div>
         <div className="col-12">
+
           <button
             type="button"
             className="btn btn-primary"
-            onClick={handleSignUp}
+            onClick={signUpFunc}
           >
-            Sign in
+            Sign In
           </button>
+          
         </div>
       </form>
     </div>
