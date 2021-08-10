@@ -11,6 +11,7 @@ import {
 } from "react-router-dom";
 import Home from "./pages/Home";
 import Products from "./pages/Products";
+import BloqueadoScreen from "./components/bloqueado"
 import ListProducts from "./pages/ListProducts";
 import "./App.css";
 import ConfirmCode from "./components/login/confirmCode";
@@ -32,6 +33,7 @@ function App() {
       <Route path="/signup" component={SignUp} />
       <Route path="/signin" component={Login} />
       <Route path="/code" component={ConfirmCode} />
+      <Route path="/bloqueado" component={BloqueadoScreen} />
     </Switch>
   );
   const routes = () => (

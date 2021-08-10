@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import UserPool from "../../UserPool";
+import bloqueado from "../../assets/bloqueado.png";
 
 const newUser = {
   correo: "",
@@ -19,6 +20,25 @@ const newUser = {
 
 function SignUp(props) {
   const [user, setUser] = useState(newUser);
+  const [session, setSession] = useState(false);
+  const userRef = useRef();
+
+  useEffect(() => {
+    let unmounted = false;
+
+    if (!unmounted) {
+      const currentUser = UserPool.getCurrentUser();
+      if (currentUser) {
+        userRef.current = currentUser;
+        setSession(true);
+        console.log("CURRENT USER ------------> ", userRef.current);
+      }
+    }
+
+    return () => {
+      unmounted = true;
+    };
+  }, []);
 
   const setInput = (key, value) => {
     setUser({ ...user, [key]: value });
@@ -39,26 +59,39 @@ function SignUp(props) {
 
     UserPool.signUp(user.correo, user.contraseña, [], null, (err, data) => {
       if (err) {
-        console.log("SIGN UP ERROR ------------> ", err);
-        alert("Error vuelva a intentar");
-      } else {
-        console.log("SIGN UP ---------> ", data);
-        props.history.push("/code", user);
-      }
-    });
 
-    props.history.push({
-      pathname: "/code",
-      state: { currentUser: user },
+        console.log("SIGN UP ERROR ------------> ", err);
+
+        alert("Error vuelva a intentar");
+
+      } else {
+
+        console.log("SIGN UP ---------> ", data);
+
+        props.history.push({
+          pathname: "/code",
+          state: { currentUser: user },
+        });
+
+      }
     });
   };
 
   return (
     <div className="container col-sm-4">
-      <form className="row g-3">
-        <div className="col-md-6">
+      {
+        session ?
+        <div className="divPhoto">
+            <img src={bloqueado} className="imageBlock"/>
+            <label>YA TE ENCUENTRAS REGISTRADO</label>
+        </div>
+        :
+        <form className="row g-3">
+          <div className="col-md-6">
+            
+          </div>
           <label for="inputEmail4" className="form-label">
-            Email
+              Email
           </label>
           <input
             type="email"
@@ -67,8 +100,6 @@ function SignUp(props) {
             value={user.correo}
             onChange={(e) => setInput("correo", e.target.value)}
           />
-        </div>
-        <div className="col-md-6">
           <label for="inputPassword4" className="form-label">
             Password
           </label>
@@ -79,8 +110,6 @@ function SignUp(props) {
             value={user.contraseña}
             onChange={(e) => setInput("contraseña", e.target.value)}
           />
-        </div>
-        <div className="col-12">
           <label for="inputName" className="form-label">
             Nombre(s)
           </label>
@@ -92,8 +121,6 @@ function SignUp(props) {
             value={user.nombre}
             onChange={(e) => setInput("nombre", e.target.value)}
           />
-        </div>
-        <div className="col-12">
           <label for="inputLastName" className="form-label">
             Appellidos
           </label>
@@ -105,21 +132,6 @@ function SignUp(props) {
             value={user.apellidoP}
             onChange={(e) => setInput("apellidoP", e.target.value)}
           />
-        </div>
-        <div className="col-md-4">
-          <label for="inputState" className="form-label">
-            Registrarse como
-          </label>
-          <select
-            id="inputState"
-            className="form-select"
-            onChange={(e) => setInput("id_rol_usuario", e.target.value)}
-          >
-            <option selected>Seleccionar</option>
-            <option value="1">PRESTAMISTA</option>
-          </select>
-        </div>
-        <div className="col-12">
           <button
             type="button"
             className="btn btn-primary"
@@ -127,8 +139,11 @@ function SignUp(props) {
           >
             Sign In
           </button>
-        </div>
-      </form>
+          <div className="col-12">
+            
+          </div>
+        </form>
+      }
     </div>
   );
 }

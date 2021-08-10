@@ -15,3 +15,16 @@
   justify-content: center;
   font-size: 3rem;
 }
+
+.divPhoto {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+}
+
+.imageBlock {
+  width: 300px;
+  height: 300px;
+}
