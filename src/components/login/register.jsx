@@ -2,6 +2,10 @@ import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import UserPool from "../../UserPool";
 import bloqueado from "../../assets/bloqueado.png";
+import * as AmazonCognitoIdentity from "amazon-cognito-identity-js";
+import toast, { Toaster } from 'react-hot-toast';
+
+const notify = () => toast.success('Here is your toast.');
 
 const newUser = {
   correo: "",
@@ -55,9 +59,15 @@ function SignUp(props) {
   };
 
   const signUpFunc = () => {
-    //console.log("USER --------------------> ",user);
 
-    UserPool.signUp(user.correo, user.contraseña, [], null, (err, data) => {
+    console.log("USER --------------------> ",user);
+
+    const attributeList = [];
+        attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({Name:"name",Value:user.nombre}));
+        attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({Name:"family_name",Value:user.apellidoP}));
+        attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({Name:"email",Value:user.correo}));
+
+    UserPool.signUp(user.correo, user.contraseña, attributeList, null, (err, data) => {
       if (err) {
 
         console.log("SIGN UP ERROR ------------> ", err);
@@ -79,6 +89,10 @@ function SignUp(props) {
 
   return (
     <div className="container col-sm-4">
+      <Toaster
+        position="top-center"
+        reverseOrder={false}
+      />
       {
         session ?
         <div className="divPhoto">
@@ -135,7 +149,7 @@ function SignUp(props) {
           <button
             type="button"
             className="btn btn-primary"
-            onClick={signUpFunc}
+            onClick={signUpFunc}//notify, signUpFunc
           >
             Sign In
           </button>
