@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import UserPool from "../UserPool";
 
 function ListProducts() {
   const [products, setProducts] = useState([]);
+  const userAuthenticated = UserPool.getCurrentUser();
 
   useEffect(() => {
     handleFetchProducts();

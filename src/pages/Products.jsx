@@ -1,49 +1,121 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import UserPool from "../UserPool";
+
+const initialObject = {
+  nom_producto: "",
+  descripcion: "",
+  fotografia: "",
+  id_catalogo: 0,
+  id_usuario: 1,
+};
 
 function Products() {
+  const [formState, setFormState] = useState(initialObject);
+  const [cat, setCat] = useState([]);
+  const userAuthenticated = UserPool.getCurrentUser();
+
+  useEffect(() => {
+    let ok = false;
+
+    if (!ok) {
+      (async () => {
+        try {
+          await axios.get("http://localhost:3000/catalogos").then((res) => {
+            setCat(res.data);
+            console.log(res.data);
+          });
+        } catch (error) {
+          console.log(
+            "ERROR AL RECUPERAR CATALOGOS ------------------> ",
+            error
+          );
+        }
+      })();
+    }
+
+    return () => {
+      ok = true;
+    };
+  }, []);
+
+  const handleSetInput = (key, value) => {
+    setFormState({ ...formState, [key]: value });
+  };
+
+  const handleRegisterProduct = async () => {
+    try {
+      const todo = { ...formState };
+      await axios
+        .post("http://localhost:3000/insertarProducto", todo)
+        .then((data) => {
+          console.log(data);
+        })
+        .catch((error) => console.log({ error, todo }));
+    } catch (error) {
+      console.error("Error creating product: ", error);
+    }
+  };
+
   return (
     <div className="container col-sm-4">
-      <form class="row g-3">
-        <div class="col-md-12">
-          <label for="inputEmail4" class="form-label">
-            Nombre del producto
-          </label>
-          <input type="email" class="form-control" id="inputEmail4" />
-        </div>
-        <div class="col-md-12">
-          <label for="formFileMultiple" class="form-label">
-            Seleccionar máximo 3 fotos
-          </label>
+      <form className="row g-3">
+        <div className="col-md-12">
+          <label className="form-label">Nombre del producto</label>
           <input
-            class="form-control"
+            type="email"
+            className="form-control"
+            id="inputEmail4"
+            value={formState.nom_producto}
+            onChange={(value) =>
+              handleSetInput("nom_producto", value.target.value)
+            }
+          />
+        </div>
+        <div className="col-md-12">
+          <label className="form-label">Seleccionar máximo 3 fotos</label>
+          <input
+            className="form-control"
             type="file"
             id="formFileMultiple"
             multiple
           />
         </div>
-        <div class="col-12">
-          <label for="inputAddress" class="form-label">
-            Descripción
-          </label>
+        <div className="col-12">
+          <label className="form-label">Descripción</label>
           <textarea
-            class="form-control"
+            className="form-control"
             placeholder="Leave a comment here"
             id="floatingTextarea2"
+            value={formState.descripcion}
+            onChange={(value) =>
+              handleSetInput("descripcion", value.target.value)
+            }
           ></textarea>
         </div>
-        <div class="col-md-12">
-          <label for="inputState" class="form-label">
-            Catalogo
-          </label>
-          <select id="inputState" class="form-select">
-            <option selected>Choose...</option>
-            <option>Catalogo 1</option>
-            <option>Catalogo 2</option>
-            <option>Catalogo 3</option>
+        <div className="col-md-12">
+          <label className="form-label">Catalogo</label>
+          <select
+            id="inputState"
+            className="form-select"
+            value={formState.id_catalogo}
+            onChange={(value) =>
+              handleSetInput("id_catalogo", value.target.value)
+            }
+          >
+            {cat.map((c, index) => (
+              <option value={c.id_catalogo} key={index.toString()}>
+                {c.categoria}
+              </option>
+            ))}
           </select>
         </div>
-        <div class="col-12">
-          <button type="button" class="btn btn-primary">
+        <div className="col-12">
+          <button
+            type="button"
+            className="btn btn-primary"
+            onClick={() => handleRegisterProduct()}
+          >
             Guardar
           </button>
         </div>
