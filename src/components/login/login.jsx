@@ -1,9 +1,7 @@
 import React, { Fragment, useRef, useState, useEffect } from "react";
-import axios from "axios";
 import UserPool from "../../UserPool";
 import { CognitoUser, AuthenticationDetails } from "amazon-cognito-identity-js";
-
-const { innerWidth: width, innerHeight: height } = window;
+import toast, { Toaster } from "react-hot-toast";
 
 const USER = {
   email: "",
@@ -36,20 +34,6 @@ const Login = () => {
     setUser({ ...user, [key]: value });
   };
 
-  const handleSignin = async () => {
-    try {
-      const _user = { ...user };
-      await axios
-        .post("url", { correo: _user.email, contrasenia: _user.password })
-        .then((data) => {
-          console.log(data);
-        })
-        .catch((error) => console.log({ error, _user }));
-    } catch (error) {
-      console.log("Error to signin account: ", error);
-    }
-  };
-
   const signUp = (event) => {
     event.preventDefault();
 
@@ -66,11 +50,11 @@ const Login = () => {
     currentUser.authenticateUser(AuthDetails, {
       onSuccess: (data) => {
         setSession(true);
-        alert("Inicio de sesión correcto");
+        toast.success("Inicio de sesión correcto");
       },
       onFailure: (err) => {
         console.log("LOGIN ERROR ----------> ", err);
-        alert("Error vuelva a intentar");
+        toast.error("Usuario o contraseña incorrectos");
       },
       newPasswordRequired: (data) => {
         console.log("LOGIN NEW PASSWORD ----------> ", data);
@@ -88,7 +72,7 @@ const Login = () => {
       try {
         currentUser.signOut();
         setSession(false);
-        console.log("SESION CERRADA");
+        toast.success("Sesión cerrada");
       } catch (error) {
         console.log("ERROR LOG OUT -------> ", error);
       }
@@ -148,6 +132,7 @@ const Login = () => {
           </form>
         )}
       </div>
+      <Toaster />
     </Fragment>
   );
 };
