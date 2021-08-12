@@ -5,14 +5,14 @@ import bloqueado from "../../assets/bloqueado.png";
 import * as AmazonCognitoIdentity from "amazon-cognito-identity-js";
 import toast, { Toaster } from 'react-hot-toast';
 
-const notify = () => toast.success('Here is your toast.');
+const notify = () => toast.success('Codigo enviado correctamente');
 
 const newUser = {
-  correo: "",
+  correo: null,
   contraseña: "",
   foto_perfil: "https://iconape.com/wp-content/files/qe/12301/png/user-tie.png",
-  nombre: "",
-  apellidoP: "",
+  nombre: null,
+  apellidoP: null,
   apellidoM: "",
   telefono: "",
   img_identificacion: "",
@@ -25,7 +25,10 @@ const newUser = {
 function SignUp(props) {
   const [user, setUser] = useState(newUser);
   const [session, setSession] = useState(false);
+  const [errMess, setErrMess ] = useState("");
   const userRef = useRef();
+
+  const notifyErr = (txt) => toast.error(txt);
 
   useEffect(() => {
     let unmounted = false;
@@ -72,12 +75,13 @@ function SignUp(props) {
 
         console.log("SIGN UP ERROR ------------> ", err);
 
-        alert("Error vuelva a intentar");
+        //alert("Error vuelva a intentar");
+        notifyErr(err.message)
 
       } else {
 
         console.log("SIGN UP ---------> ", data);
-
+        notify()
         props.history.push({
           pathname: "/code",
           state: { currentUser: user },

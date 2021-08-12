@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "../styles/home.css";
 import ProductCard from "../components/product-card/product-card";
 import { FiSearch } from "react-icons/fi";
@@ -16,10 +16,12 @@ const producto = {
   id_catalogo: 0,
 };
 
-const URL = "http://localhost:3000/vistaProductos";
+const URL = "http://18.118.78.212:3000/vistaProductos";
 
 function Home() {
   const userAuthenticated = UserPool.getCurrentUser();
+
+  const [productosState, setProductosState] = useState([]);
   const arrayProductos = useRef([]);
 
   useEffect(() => {
@@ -30,6 +32,7 @@ function Home() {
         try {
           await axios.get(URL).then((res) => {
             arrayProductos.current = res.data;
+            setProductosState(res.data);
             console.log(
               "PRODUCTOS -------------------> ",
               arrayProductos.current
@@ -58,7 +61,7 @@ function Home() {
         </div>
       </div>
       <div className="divProducts">
-        {arrayProductos.current.map((element) => {
+        {productosState.map((element) => {
           const current = {
             nom_producto: element.nom_producto,
             descripcion: element.descripcion,

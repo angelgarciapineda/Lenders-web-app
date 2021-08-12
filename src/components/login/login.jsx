@@ -16,12 +16,20 @@ const Login = () => {
   useEffect(() => {
     let unmounted = false;
 
+    const callback = (err, result) => {
+      if (err) {
+          console.log("ERROR CONFIRM --------->",err);
+          return;
+      }
+          console.log("SUCCES CONFIRM --------->",result);
+    };
+
     if (!unmounted) {
       const currentUser = UserPool.getCurrentUser();
       if (currentUser) {
         userRef.current = currentUser;
         setSession(true);
-        console.log("CURRENT USER ------------> ", userRef.current);
+        console.log("CURRENT USER ------------> ", user);
       }
     }
 
