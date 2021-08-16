@@ -7,16 +7,54 @@
   padding: 5px;
 }
 
-.divSearch {
-  /* background-color: coral; */
-  height: 50px;
-  width: 61%;
-  margin: 5px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  padding: 5px;
-  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+@media screen and (max-width: 1920px) {
+  .divSearch {
+    /* background-coor: coral; */
+    height: 50px;
+    width: 61%;
+    margin: 5px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 5px;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+  }
+
+  .divProducts {
+    /* background-color: coral; */
+    display: flex;
+    flex-direction: row;
+    /* justify-content: center; */
+    align-items: center;
+    width: 64%;
+    margin: 5px;
+    flex-wrap: wrap;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .divSearch {
+    /* background-color: coral; */
+    height: 50px;
+    width: 95%;
+    margin: 5px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 5px;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+  }
+
+  .divProducts {
+    /* background-color: coral; */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    margin: 5px;
+    flex-wrap: wrap;
+  }
 }
 
 .divIconSearch {
@@ -30,19 +68,16 @@
   border-left-width: 5px;
 }
 
-.divProducts {
-  /* background-color: coral; */
-  display: flex;
-  flex-direction: row;
-  /* justify-content: center; */
-  align-items: center;
-  width: 64%;
-  margin: 5px;
-  flex-wrap: wrap;
-}
-
 .inputSearch {
   background-color: white;
   width: 100%;
   border: none;
+}
+
+.divTitleModal {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
 }

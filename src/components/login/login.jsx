@@ -89,28 +89,31 @@ const Login = () => {
 
   return (
     <Fragment>
-      <div className="container col-sm-4">
+      <div className="baseContainerCentrado">
+        <label className="generalTitle">
+          Inicio de sesion
+        </label>
         {session ? (
-          <button type="submit" className="btn btn-primary" onClick={signOut}>
-            Log out
-          </button>
+          // btn btn-primary
+          <div className="" >
+            <button type="submit" className="generalButtonRed" onClick={signOut}>
+              Log out
+            </button>
+          </div>
         ) : (
-          <form className="row g-3">
+          <form className="generalCardForm">
             <div className="mb-3">
               <label id="exampleInputEmail1" className="form-label">
                 Email address
               </label>
               <input
                 type="email"
-                className="form-control"
+                className="generalInput"
                 id="exampleInputEmail1"
                 aria-describedby="emailHelp"
                 value={user.email}
                 onChange={(e) => setInput("email", e.target.value)}
               />
-              <div id="emailHelp" className="form-text">
-                We'll never share your email with anyone else.
-              </div>
             </div>
             <div className="mb-3">
               <label id="exampleInputPassword1" className="form-label">
@@ -118,23 +121,13 @@ const Login = () => {
               </label>
               <input
                 type="password"
-                className="form-control"
+                className="generalInput"
                 id="exampleInputPassword1"
                 value={user.password}
                 onChange={(e) => setInput("password", e.target.value)}
               />
             </div>
-            <div className="mb-3 form-check">
-              <input
-                type="checkbox"
-                className="form-check-input"
-                id="exampleCheck1"
-              />
-              <label className="form-check-label" id="exampleCheck1">
-                Check me out
-              </label>
-            </div>
-            <button type="submit" className="btn btn-primary" onClick={signUp}>
+            <button type="submit" className="generalButtonBlue" onClick={signUp}>
               Submit
             </button>
           </form>

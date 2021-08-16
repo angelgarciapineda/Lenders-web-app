@@ -82,15 +82,18 @@ function Products() {
 
 
   return (
-    <div className="container col-sm-4">
+    <div className="baseContainerCentrado">
+      <label className="generalTitle">
+        Registro de productos
+      </label>
       {
         session ?
-        <form className="row g-3">
+        <form className="generalCardForm">
           <div className="col-md-12">
             <label className="form-label">Nombre del producto</label>
             <input
               type="email"
-              className="form-control"
+              className="generalInput"
               id="inputEmail4"
               value={formState.nom_producto}
               onChange={(value) =>
@@ -139,7 +142,7 @@ function Products() {
           <div className="col-12">
             <button
               type="button"
-              className="btn btn-primary"
+              className="generalButtonBlue"
               onClick={() => handleRegisterProduct()}
             >
               Guardar

@@ -92,11 +92,14 @@ function SignUp(props) {
   };
 
   return (
-    <div className="container col-sm-4">
+    <div className="baseContainerCentrado">
       <Toaster
         position="top-center"
         reverseOrder={false}
       />
+      <label className="generalTitle">
+          Registro
+      </label>
       {
         session ?
         <div className="divPhoto">
@@ -104,7 +107,7 @@ function SignUp(props) {
             <label>YA TE ENCUENTRAS REGISTRADO</label>
         </div>
         :
-        <form className="row g-3">
+        <form className="generalCardForm">
           <div className="col-md-6">
             
           </div>
@@ -113,7 +116,7 @@ function SignUp(props) {
           </label>
           <input
             type="email"
-            className="form-control"
+            className="generalInput"
             id="inputEmail4"
             value={user.correo}
             onChange={(e) => setInput("correo", e.target.value)}
@@ -123,7 +126,7 @@ function SignUp(props) {
           </label>
           <input
             type="password"
-            className="form-control"
+            className="generalInput"
             id="inputPassword4"
             value={user.contraseña}
             onChange={(e) => setInput("contraseña", e.target.value)}
@@ -133,7 +136,7 @@ function SignUp(props) {
           </label>
           <input
             type="text"
-            className="form-control"
+            className="generalInput"
             id="inputName"
             placeholder="San Martin Caballero"
             value={user.nombre}
@@ -144,7 +147,7 @@ function SignUp(props) {
           </label>
           <input
             type="text"
-            className="form-control"
+            className="generalInput"
             id="inputLastName"
             placeholder="Montes de Oca"
             value={user.apellidoP}
@@ -152,7 +155,7 @@ function SignUp(props) {
           />
           <button
             type="button"
-            className="btn btn-primary"
+            className="generalButtonBlue"
             onClick={signUpFunc}//notify, signUpFunc
           >
             Sign In
