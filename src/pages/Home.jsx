@@ -29,7 +29,7 @@ const customStyles = {
   },
 };
 
-const URL = "http://localhost:3000/vistaProductos";
+const URL = "http://3.133.91.107:3000/vistaProductos";
 
 function Home() {
   const userAuthenticated = UserPool.getCurrentUser();

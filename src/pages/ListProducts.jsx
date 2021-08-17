@@ -33,7 +33,7 @@ function ListProducts() {
   const handleFetchProducts = async () => {
     try {
       await axios
-        .get("http://localhost:3000/productos")
+        .get("http://3.133.91.107:3000/productos")
         .then((response) => {
           console.log(response.data);
           setProducts(response.data);
